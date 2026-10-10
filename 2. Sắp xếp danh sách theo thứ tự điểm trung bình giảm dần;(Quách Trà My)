@@ -1,0 +1,19 @@
+void sapxep(Sinhvien a[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int y = i + 1; y < n; y++) {
+            if (a[i].laydtb() < a[y].laydtb()) { 
+                Sinhvien t = a[i];
+                a[i] = a[y];
+                a[y] = t;
+            }
+        }
+    }
+}
+
+//Goi trong ham main
+
+sapxep(a, n);
+    cout << "-- DANH SACH SAU KHI SAP XEP GIAM DAN THEO DTB --" << endl;
+    for (int i = 0; i < n; i++) {
+        a[i].insv();
+    }   
