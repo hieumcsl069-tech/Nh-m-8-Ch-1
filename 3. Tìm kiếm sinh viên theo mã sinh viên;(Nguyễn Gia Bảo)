@@ -1,0 +1,24 @@
+int vitri(Sinhvien a[], int n) {
+    char x[20];
+    cout << "Nhap vao ma sinh vien can tim kiem: ";   
+    cin.ignore();
+    cin.getline(x, 20);
+    for (int i = 0; i < n; i++) {
+        if (strcmp(a[i].laymasv(), x) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void timkiem(Sinhvien a[], int n) {
+    int k = vitri(a, n);
+    if (k != -1) {
+        cout << "Tim thay sinh vien:" << endl;
+        a[k].insv();
+    } else {
+        cout << "Khong tim thay sinh vien!" << endl;
+    }
+}
+
+timkiem(a,n);
