@@ -1,0 +1,28 @@
+void xoasv(Sinhvien a[], int &n) {
+    if (n <= 0) {
+        cout << "Danh sach trong!" << endl;
+        return;
+    }
+
+    int k;
+    do {
+        cout << "\nNhap vao so thu tu sinh vien muon xoa (1 -> " << n << "): ";
+        cin >> k;
+        if (k < 1 || k > n) {
+            cout << "So thu tu khong hop le! Vui long nhap lai." << endl;
+        }
+    } while (k < 1 || k > n); 
+
+    for (int i = k - 1; i < n - 1; i++) {
+        a[i] = a[i + 1];
+    }
+    n--;
+    cout << "=> Da xoa sinh vien thu " << k << " thanh cong!\n" << endl;
+}
+
+//Gọi trong hàm main 
+xoasv(a, n);
+    cout << "-- DANH SACH SINH VIEN SAU KHI XOA --" << endl;
+    for (int i = 0; i < n; i++) {
+        a[i].insv();
+    }
