@@ -1,0 +1,149 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+using namespace std;
+
+class Sinhvien {
+private:
+    char masv[20];
+    char hoten[30];
+    char lop[20];
+    float A1, A2, A3, dtb; 
+
+public:
+    void nhapsv();
+    void insv() ;
+    float laydtb() ; 
+    const char* laymasv() ;
+};
+
+float Sinhvien::laydtb() {
+    return dtb;
+}
+
+const char* Sinhvien::laymasv() {
+    return masv;
+}
+
+void Sinhvien::nhapsv() {
+    cout << "Nhap vao ma sinh vien: ";
+    cin >> masv;
+    cin.ignore(); 
+    
+    cout << "Nhap vao ho ten cua sinh vien: ";
+    cin.getline(hoten, 30);
+    
+    cout << "Nhap vao lop cua sinh vien: ";
+    cin.getline(lop, 20);
+    
+    cout << "Nhap lan luot diem cua sinh vien:" << endl;
+    cout << "A1 = "; cin >> A1;
+    cout << "A2 = "; cin >> A2;
+    cout << "A3 = "; cin >> A3;
+    
+    dtb = (A1 + A2 + A3) / 3.0f; 
+}
+
+void Sinhvien::insv() {
+    cout << "Ma sinh vien la: " << masv << endl;
+    cout << "Ho ten la: " << hoten << endl;
+    cout << "Lop: " << lop << endl;
+    cout << "Diem A1: " << A1 << " | A2: " << A2 << " 		| A3: " << A3 << endl;
+    cout << "Diem trung binh: " << dtb << endl;
+    cout << "----------------------" << endl;
+}
+
+void sapxep(Sinhvien a[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int y = i + 1; y < n; y++) {
+            if (a[i].laydtb() < a[y].laydtb()) { 
+                Sinhvien t = a[i];
+                a[i] = a[y];
+                a[y] = t;
+            }
+        }
+    }
+}
+
+int vitri(Sinhvien a[], int n) {
+    char x[20];
+    cout << "Nhap vao ma sinh vien can tim kiem: ";   
+    cin.ignore();
+    cin.getline(x, 20);
+    for (int i = 0; i < n; i++) {
+        if (strcmp(a[i].laymasv(), x) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void timkiem(Sinhvien a[], int n) {
+    int k = vitri(a, n);
+    if (k != -1) {
+        cout << "Tim thay sinh vien:" << endl;
+        a[k].insv();
+    } else {
+        cout << "Khong tim thay sinh vien!" << endl;
+    }
+}
+
+void xoasv(Sinhvien a[], int &n) {
+    if (n <= 0) {
+        cout << "Danh sach trong!" << endl;
+        return;
+    }
+
+    int k;
+    do {
+        cout << "\nNhap vao so thu tu sinh vien muon xoa (1 -> " << n << "): ";
+        cin >> k;
+        if (k < 1 || k > n) {
+            cout << "So thu tu khong hop le! Vui long nhap lai." << endl;
+        }
+    } while (k < 1 || k > n); 
+
+    for (int i = k - 1; i < n - 1; i++) {
+        a[i] = a[i + 1];
+    }
+    n--;
+    cout << "=> Da xoa sinh vien thu " << k << " thanh cong!\n" << endl;
+}
+
+int main() {
+    int n;
+    Sinhvien a[200];
+    do {
+        cout << "Nhap vao so luong sinh vien muon quan ly: ";
+        cin >> n;   
+        if (n < 1 || n >= 200) {
+            cout << "Vui long nhap lai so luong sinh vien!" << endl;
+        }
+    } while (n < 1 || n >= 200);
+
+    for (int i = 0; i < n; i++) {
+        cout << "\n--- Nhap vao thong tin sinh vien stt " << i + 1 << " ---" << endl;
+        a[i].nhapsv();
+    }
+
+    cout << "\n-- DANH SACH SINH VIEN BAN DAU --" << endl;
+    for (int i = 0; i < n; i++) {
+        a[i].insv();
+    }
+    
+    sapxep(a, n);
+    cout << "-- DANH SACH SAU KHI SAP XEP GIAM DAN THEO DTB --" << endl;
+    for (int i = 0; i < n; i++) {
+        a[i].insv();
+    }   
+    
+    timkiem(a, n);
+    
+    xoasv(a, n);
+    cout << "-- DANH SACH SINH VIEN SAU KHI XOA --" << endl;
+    for (int i = 0; i < n; i++) {
+        a[i].insv();
+    }
+    
+    return 0;
+}
